@@ -1,0 +1,335 @@
+<html>
+	<head>
+		<title> Kalkulator bodova za maturu</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="footer.css">
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+		<style>
+		body, footer, h1 {font-family: "Lato", sans-serif; background-color: #f4f2cd}
+		#prosjek, #s1, #bodovi {
+			text-align: center;
+			padding: 10px;
+		}
+		.bgimg-1 {
+		background-attachment: fixed;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-image: url('knjige.jpg');
+		min-height: 100%;
+		}
+
+		#imena{
+		font-weight: bold; 
+		font-size: 150%;
+		}
+
+		@media only screen and (max-device-width: 1600px) {
+  			.bgimg-1 {
+   			background-attachment: scroll;
+    		min-height: 400px;
+  			}
+		}
+
+ 		#fakulteti, #smjerovi {
+ 			width: 30%;
+ 		}
+
+ 		#forma1, #forma2 {
+ 			margin: 1px;
+ 		}
+ 		#hrvatski, #matematika, #engleski {
+ 			margin-right: 2px; 
+ 		} 		
+ 		select, input {
+			text-align: center;
+			text-align-last: center;
+		}
+		option {
+			text-align: left;
+		}
+
+		footer {
+			text-align: center;
+		}
+
+
+		</style>
+	</head>
+	
+	<body>
+		<!-- Naslov -->
+		<div class="bgimg-1 w3-display-container w3-opacity-min" id="home">
+		  <div class="w3-display-middle" style="white-space:nowrap;">
+			<span class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity">Kalkulator <span class="w3-hide-small">bodova</span> za maturu</span>
+		  </div>
+		</div>
+
+
+		</div>		
+		<div id = 'prosjek'>
+
+			<script type="text/javascript">
+				// Funkcija za prosjeke
+				function Bodovi() {
+					var Bodovi = document.getElementById("Bodovi");
+				    var p1 = document.getElementById('prvi').value;
+            		var p2 = document.getElementById('drugi').value;
+            		var p3 = document.getElementById('treci').value;
+            		var p4 = document.getElementById('cetvrti').value;
+            		var hrv = document.getElementById('hrvatski').value;
+            		var mat = document.getElementById('matematika').value;
+            		var eng = document.getElementById('engleski').value;
+
+            		var fakultet = document.getElementById('Fakulteti')[document.getElementById('Fakulteti').value].innerHTML;
+            		var smjer = document.getElementById('Smjerovi').value;
+            		var varijable = "prvi=" + p1 + "&drugi=" + p2 + "&treci=" + p3 + "&cetvrti=" + p4 + "&hrvatski=" + hrv + "&matematika=" + mat + "&engleski=" + eng + "&fakulteti=" + fakultet + "&smjerovi=" + smjer;
+	            	var xmlhttp = new XMLHttpRequest();
+	            	xmlhttp.open("POST", "kalk.php", true);
+	            	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			        xmlhttp.onreadystatechange = function() {
+			            if (this.readyState == 4 && this.status == 200) {
+			                Bodovi.innerHTML = 'Ostvareni broj bodova: ' + this.responseText;
+				        }
+				    };
+				    xmlhttp.send(varijable);
+					document.getElementById("Bodovi").innerHTML = "Računa se...";
+				};
+
+				// Funkcija za opcije
+				function Opcije(s1,s2) {
+					var s1 = document.getElementById(s1);
+					var s2 = document.getElementById(s2);
+					s2.innerHTML = "";
+					if (s1.value == "") {
+						var optionArray = ["|"];
+					} else if(s1.value == "1"){
+						var optionArray = ["ekonomija|Ekonomija", "poslovna ekonomija; smjerovi: financijski management, marketinško upravljanje, management i poduzetništvo, turizam; informatički menadžment|Poslovna ekonomija; smjerovi: Financijski management, Marketinško upravljanje, Management i poduzetništvo, Turizam; Informatički menadžment", "glazbena pedagogija|Glazbena pedagogija", "klasična harmonika|Klasična harmonika", "kultura i turizam|Kultura i turizam", "talijanski jezik i književnost (jednopredmetni)|Talijanski jezik i književnost (jednopredmetni)", "znanost o moru|Znanost o moru", "poslovna ekonomija; smjerovi: financijski management, marketinško upravljanje, management i poduzetništvo; turizam; informatički menadžment|Poslovna ekonomija; smjerovi: Financijski management, Marketinško upravljanje, Management i poduzetništvo; Turizam; Informatički menadžment", "japanski jezik i kultura (jednopredmetni)|Japanski jezik i kultura (jednopredmetni)", "učiteljski studij (na talijanskom jeziku)|Učiteljski studij (na talijanskom jeziku)", "učiteljski studij (na hrvatskom jeziku)|Učiteljski studij (na hrvatskom jeziku)"];
+					} else if(s1.value == "2"){
+						var optionArray = ["računarstvo|Računarstvo"];
+					} else if(s1.value == "3"){
+						var optionArray = ["međunarodni odnosi i diplomacija|Međunarodni odnosi i diplomacija", "održivi razvoj i međunarodni odnosi|Održivi razvoj i međunarodni odnosi"];
+					} else if(s1.value == "4"){
+						var optionArray = ["računovodstvo i financije; smjer: računovodstveno - financijski|Računovodstvo i financije; smjer: računovodstveno - financijski"];
+					} else if(s1.value == "5"){
+						var optionArray = ["elektrotehnika i informacijska tehnologija i računarstvo|Elektrotehnika i informacijska tehnologija i Računarstvo", "primjena informacijske tehnologije u poslovanju|Primjena informacijske tehnologije u poslovanju", "aeronautika - modul kontrolor leta|Aeronautika - modul kontrolor leta", "inteligentni transportni sustavi i logistika|Inteligentni transportni sustavi i logistika", "promet|Promet", "zrakoplovstvo|Zrakoplovstvo", "medicinska biokemija|Medicinska biokemija", "geodezija i geoinformatika|Geodezija i geoinformatika", "inženjerstvo okoliša|Inženjerstvo okoliša", "kroatologija (jednopredmetni)|Kroatologija (jednopredmetni)", "sociologija (jednopredmetni)|Sociologija (jednopredmetni)", "crkvena glazba (institut za crkvenu glazbu a. vidaković)|Crkvena glazba (Institut za crkvenu glazbu A. Vidaković)", "filozofsko - teološki studij|Filozofsko - teološki studij", "metalurgija; smjerovi: metalurško inženjerstvo, industrijska ekologija|Metalurgija; smjerovi: Metalurško inženjerstvo, Industrijska ekologija", "studij za instrumentaliste; smjer: gitara|Studij za instrumentaliste; smjer: Gitara", "studij za instrumentaliste; smjer: harfa|Studij za instrumentaliste; smjer: Harfa", "studij za instrumentaliste; smjer: klarinet|Studij za instrumentaliste; smjer: Klarinet", "studij za instrumentaliste; smjer: klavir|Studij za instrumentaliste; smjer: Klavir", "muzikologija - dvopredmetno|Muzikologija - dvopredmetno", "studij za instrumentaliste; smjer: rog|Studij za instrumentaliste; smjer: Rog", "studij za instrumentaliste; smjer: trombon|Studij za instrumentaliste; smjer: Trombon", "studij za instrumentaliste; smjer: truba|Studij za instrumentaliste; smjer: Truba", "studij za instrumentaliste; smjer: tuba|Studij za instrumentaliste; smjer: Tuba", "studij za instrumentaliste; smjer: udaraljke|Studij za instrumentaliste; smjer: Udaraljke", "studij za instrumentaliste; smjer: violina|Studij za instrumentaliste; smjer: Violina", "fizika i informatika; smjer: nastavnički|Fizika i informatika; smjer: nastavnički", "fizika i kemija; smjer: nastavnički|Fizika i kemija; smjer: nastavnički", "fizika; smjer: nastavnički|Fizika; smjer: nastavnički", "matematika i fizika; smjer: nastavnički|Matematika i fizika; smjer: nastavnički", "tekstilna, odjevna i obućarska tehnologija; smjerovi: tekstilna tehnologija, odjevna tehnologija i obućarska tehnologija|Tekstilna, odjevna i obućarska tehnologija; smjerovi: Tekstilna tehnologija, Odjevna tehnologija i Obućarska tehnologija", "tekstilna tehnologija i inženjerstvo, smjerovi: odjevno inženjerstvo, projektiranje i menadžment tekstila, tekstilna kemija, materijali i ekologija|Tekstilna tehnologija i inženjerstvo, smjerovi: Odjevno inženjerstvo, Projektiranje i menadžment tekstila, Tekstilna kemija, materijali i ekologija", "informacijski sustavi i poslovni sustavi|Informacijski sustavi i Poslovni sustavi", "grafička tehnologija, smjer: tehničko-tehnološki|Grafička tehnologija, smjer: Tehničko-tehnološki", "grafička tehnologija, smjer: dizajn grafičkih proizvoda|Grafička tehnologija, smjer: Dizajn grafičkih proizvoda", "latinski jezik (dvopredmetni)|Latinski jezik (dvopredmetni)", "učiteljski studij (s njemačkim jezikom)|Učiteljski studij (s njemačkim jezikom)", "bachelor degree in business|Bachelor Degree in Business", "tekstilna tehnologija i inženjerstvo, smjer: industrijski dizajn tekstila i odjeće|Tekstilna tehnologija i inženjerstvo, smjer: Industrijski dizajn tekstila i odjeće", "studij za instrumentaliste; smjer: flauta|Studij za instrumentaliste; smjer: Flauta", "kompozicija; smjer: kompozicija, elektronička kompozicija, primijenjena kompozicija|Kompozicija; smjer: Kompozicija, Elektronička kompozicija, Primijenjena kompozicija", "rani i predškolski odgoj i obrazovanje (izvanredni)|Rani i predškolski odgoj i obrazovanje (izvanredni)", "tekstilna odjevna i obućarska tehnologija; smjer: dizajn obuće|Tekstilna odjevna i obućarska tehnologija; smjer: Dizajn obuće", "komunikologija (dvopredmetni)|Komunikologija (dvopredmetni)", "aeronautika - modul vojni pilot|Aeronautika - modul vojni pilot", "aeronautika - modul civilni pilot|Aeronautika - modul civilni pilot", "protestantska teologija|Protestantska teologija", "dirigiranje; smjer: dirigiranje, zborsko dirigiranje|Dirigiranje; smjer: Dirigiranje, Zborsko dirigiranje", "drvna tehnologija|Drvna tehnologija", "šumarstvo|Šumarstvo", "urbano šumarstvo, zaštita prirode i okoliša|Urbano šumarstvo, zaštita prirode i okoliša", "javna uprava|Javna uprava", "porezni studij|Porezni studij", "animirani film i novi mediji|Animirani film i novi mediji", "grafika|Grafika", "restauriranje i konzerviranje umjetnina; smjer: slikarstvo|Restauriranje i konzerviranje umjetnina; smjer: slikarstvo", "politologija|Politologija", "restauriranje i konzerviranje umjetnina; smjer: kiparstvo|Restauriranje i konzerviranje umjetnina; smjer: kiparstvo", "filozofija (jednopredmetni)|Filozofija (jednopredmetni)", "filozofija i religijske znanosti |Filozofija i religijske znanosti ", "fizika; smjer: istraživački|Fizika; smjer: istraživački", "agrarna ekonomika|Agrarna ekonomika", "animalne znanosti|Animalne znanosti", "biljne znanosti|Biljne znanosti", "hortikultura|Hortikultura", "krajobrazna arhitektura|Krajobrazna arhitektura", "fitomedicina|Fitomedicina", "ekoinženjerstvo|Ekoinženjerstvo", "kemija i inženjerstvo materijala|Kemija i inženjerstvo materijala", "kemijsko inženjerstvo|Kemijsko inženjerstvo", "primijenjena kemija|Primijenjena kemija", "veterinarska medicina|Veterinarska medicina", "izobrazba trenera; smjer: fitnes|Izobrazba trenera; smjer: Fitnes", "geološko inženjerstvo|Geološko inženjerstvo", "naftno rudarstvo|Naftno rudarstvo", "rudarstvo|Rudarstvo", "izobrazba trenera; smjerovi: akrobatski rock and roll, atletika, badminton, bejzbol, biciklizam, biljar, boks, dizanje utega|Izobrazba trenera; smjerovi: Akrobatski Rock and Roll, Atletika, Badminton, Bejzbol, Biciklizam, Biljar, Boks, Dizanje utega", "izobrazba trenera; smjer: kondicijska priprema sportaša|Izobrazba trenera; smjer: Kondicijska priprema sportaša", "izobrazba trenera; smjer: sportska rekreacija|Izobrazba trenera; smjer: Sportska rekreacija", "tekstilni i modni dizajn; smjerovi: modni dizajn, dizajn tekstila|Tekstilni i modni dizajn; smjerovi: Modni dizajn, Dizajn tekstila", "agroekologija|Agroekologija", "ekološka poljoprivreda|Ekološka poljoprivreda", "poljoprivredna tehnika|Poljoprivredna tehnika", "filmska i tv režija|Filmska i TV režija", "kazališna režija i radiofonija|Kazališna režija i radiofonija", "montaža|Montaža", "produkcija|Produkcija", "dizajn|Dizajn", "logopedija|Logopedija", "rehabilitacija|Rehabilitacija", "socijalna pedagogija|Socijalna pedagogija", "farmacija|Farmacija", "antropologija (dvopredmetni)|Antropologija (dvopredmetni)", "arheologija (dvopredmetni)|Arheologija (dvopredmetni)", "češki jezik i književnost (dvopredmetni)|Češki jezik i književnost (dvopredmetni)", "etnologija i kulturna antropologija (dvopredmetni)|Etnologija i kulturna antropologija (dvopredmetni)", "fonetika (dvopredmetni)|Fonetika (dvopredmetni)", "germanistika (dvopredmetni)|Germanistika (dvopredmetni)", "hungarologija (dvopredmetni)|Hungarologija (dvopredmetni)", "indologija (dvopredmetni)|Indologija (dvopredmetni)", "informacijske znanosti (jednopredmetni)|Informacijske znanosti (jednopredmetni)", "južnoslavenski jezici i književnosti (dvopredmetni)|Južnoslavenski jezici i književnosti (dvopredmetni)", "komparativna književnost (dvopredmetni)|Komparativna književnost (dvopredmetni)", "komparativna književnost (jednopredmetni)|Komparativna književnost (jednopredmetni)", "kroatistika (dvopredmetni)|Kroatistika (dvopredmetni)", "kroatistika (jednopredmetni)|Kroatistika (jednopredmetni)", "latinski jezik i književnost (dvopredmetni)|Latinski jezik i književnost (dvopredmetni)", "lingvistika (dvopredmetni)|Lingvistika (dvopredmetni)", "poljski jezik i književnost (dvopredmetni)|Poljski jezik i književnost (dvopredmetni)", "portugalski jezik i književnost (dvopredmetni)|Portugalski jezik i književnost (dvopredmetni)", "psihologija (jednopredmetni)|Psihologija (jednopredmetni)", "rumunjski jezik i književnost (dvopredmetni)|Rumunjski jezik i književnost (dvopredmetni)", "slovački jezik i književnost (dvopredmetni)|Slovački jezik i književnost (dvopredmetni)", "švedski jezik i kultura (dvopredmetni)|Švedski jezik i kultura (dvopredmetni)", "talijanistika (dvopredmetni)|Talijanistika (dvopredmetni)", "talijanistika (jednopredmetni)|Talijanistika (jednopredmetni)", "turkologija (dvopredmetni)|Turkologija (dvopredmetni)", "ukrajinski jezik i književnost (dvopredmetni)|Ukrajinski jezik i književnost (dvopredmetni)", "komunikologija (jednopredmetni)|Komunikologija (jednopredmetni)", "kroatologija (dvopredmetni)|Kroatologija (dvopredmetni)", "studij za instrumentaliste; smjer: čembalo|Studij za instrumentaliste; smjer: Čembalo", "studij za instrumentaliste; smjer: fagot|Studij za instrumentaliste; smjer: Fagot", "studij za instrumentaliste; smjer: kontrabas|Studij za instrumentaliste; smjer: Kontrabas", "muzikologija; smjer: muzikologija, etnomuzikologija|Muzikologija; smjer: Muzikologija, Etnomuzikologija", "studij za instrumentaliste; smjer: oboa|Studij za instrumentaliste; smjer: Oboa", "studij za instrumentaliste; smjer: orgulje|Studij za instrumentaliste; smjer: Orgulje", "studij za instrumentaliste; smjer: saksofon|Studij za instrumentaliste; smjer: Saksofon", "studij za instrumentaliste; smjer: viola|Studij za instrumentaliste; smjer: Viola", "studij za instrumentaliste; smjer: violončelo|Studij za instrumentaliste; smjer: Violončelo", "socijalni rad|Socijalni rad", "biotehnologija|Biotehnologija", "nutricionizam|Nutricionizam", "biologija i kemija; smjer: nastavnički|Biologija i kemija; smjer: nastavnički", "geografija i povijest; smjer: nastavnički|Geografija i povijest; smjer: nastavnički", "geografija; smjer: istraživački|Geografija; smjer: istraživački", "geologija|Geologija", "matematika; smjer: nastavnički|Matematika; smjer: nastavnički", "molekularna biologija|Molekularna biologija", "znanosti o okolišu|Znanosti o okolišu", "učiteljski studij (s engleskim jezikom)|Učiteljski studij (s engleskim jezikom)", "informacijske znanosti (dvopredmetni)|Informacijske znanosti (dvopredmetni)", "teorija glazbe|Teorija glazbe", "povijest i geografija; smjer: nastavnički|Povijest i geografija; smjer: nastavnički", "geofizika|Geofizika", "vojno inženjerstvo|Vojno inženjerstvo", "vojno vođenje i upravljanje|Vojno vođenje i upravljanje", "energetska učinkovitost i obnovljivi izvori|Energetska učinkovitost i obnovljivi izvori", "nederlandistika (dvopredmetni)|Nederlandistika (dvopredmetni)", "bachelor degree in economics|Bachelor Degree in Economics"];
+					} else if(s1.value == "6"){
+						var optionArray = ["akvakultura|Akvakultura", "brodostrojarstvo|Brodostrojarstvo", "ekonomija; studijski smjer: ekonomija|Ekonomija; studijski smjer: Ekonomija", "elektrotehničke i komunikacijske tehnologije u pomorstvu|Elektrotehničke i komunikacijske tehnologije u pomorstvu", "mediji i kultura društva|Mediji i kultura društva", "nautika|Nautika", "pomorske tehnologije jahta i marina|Pomorske tehnologije jahta i marina", "poslovna ekonomija; smjer: marketing|Poslovna ekonomija; smjer: Marketing", "primijenjeno / poslovno računarstvo|Primijenjeno / poslovno računarstvo", "konzervacija - restauracija; smjerovi: drvo, papir, tekstil, metal, keramika|Konzervacija - restauracija; smjerovi: Drvo, Papir, Tekstil, Metal, Keramika", "financijski menadžment|Financijski menadžment", "poslovna ekonomija; smjer: turizam|Poslovna ekonomija; smjer: Turizam", "poslovna ekonomija; smjer: it menadžment|Poslovna ekonomija; smjer: IT Menadžment", "povijest jadrana i mediterana|Povijest Jadrana i Mediterana", "hotelijerstvo, restoraterstvo i gastronomija|Hotelijerstvo, restoraterstvo i gastronomija"];
+					} else if(s1.value == "7"){
+						var optionArray = ["ekonomija poduzetništva|Ekonomija poduzetništva", "poslovna informatika|Poslovna informatika", "novinarstvo|Novinarstvo", "tehnički menadžment|Tehnički menadžment", "odnosi s javnošću i studij medija|Odnosi s javnošću i studij medija", "filmsko, televizijsko i multimedijsko oblikovanje|Filmsko, televizijsko i multimedijsko oblikovanje"];
+					} else if(s1.value == "8"){
+						var optionArray = ["informatika|Informatika", "mediteranska poljoprivreda; smjerovi: opća mediteranska poljoprivreda, pčelarstvo|Mediteranska poljoprivreda; smjerovi: Opća mediteranska poljoprivreda, Pčelarstvo", "poduzetništvo|Poduzetništvo", "sigurnost na radu|Sigurnost na radu", "vinarstvo|Vinarstvo", "željeznički promet|Željeznički promet", "mediteranska poljoprivreda;smjerovi; opća mediteranska poljoprivreda, pčelarstvo|Mediteranska poljoprivreda;smjerovi; Opća mediteranska poljoprivreda, Pčelarstvo", "telematika|Telematika"];
+					} else if(s1.value == "9"){
+						var optionArray = ["financije i pravo|Financije i pravo"];
+					} else if(s1.value == "10"){
+						var optionArray = ["studij za marketing i komunikacije|Studij za marketing i komunikacije", "menadžment i produkcija u kulturi|Menadžment i produkcija u kulturi", "upravljanje opskrbnim lancima|Upravljanje opskrbnim lancima"];
+					} else if(s1.value == "11"){
+						var optionArray = ["arheologija (jednopredmetni)|Arheologija (jednopredmetni)", "brodostrojarstvo i tehnologija pomorskog prometa|Brodostrojarstvo i tehnologija pomorskog prometa", "anglistika (dvopredmetni)|Anglistika (dvopredmetni)", "etnologija i antropologija (dvopredmetni)|Etnologija i antropologija (dvopredmetni)", "filozofija (dvopredmetni)|Filozofija (dvopredmetni)", "francuski jezik i književnost (dvopredmetni)|Francuski jezik i književnost (dvopredmetni)", "geografija (dvopredmetni); smjer: nastavnički|Geografija (dvopredmetni); smjer: nastavnički", "geografija (jednopredmetni); smjer:  primijenjena geografija|Geografija (jednopredmetni); smjer:  Primijenjena geografija", "grčki jezik i književnost (dvopredmetni)|Grčki jezik i književnost (dvopredmetni)", "informacijske znanosti|Informacijske znanosti", "latinski jezik i rimska književnost (dvopredmetni)|Latinski jezik i rimska književnost (dvopredmetni)", "menadžment|Menadžment", "nautika i tehnologija pomorskog prometa|Nautika i tehnologija pomorskog prometa", "njemački jezik i književnost (dvopredmetni)|Njemački jezik i književnost (dvopredmetni)", "pedagogija (dvopredmetni)|Pedagogija (dvopredmetni)", "povijest (dvopredmetni)|Povijest (dvopredmetni)", "povijest (jednopredmetni)|Povijest (jednopredmetni)", "povijest umjetnosti (dvopredmetni)|Povijest umjetnosti (dvopredmetni)", "rani i predškolski odgoj i obrazovanje|Rani i predškolski odgoj i obrazovanje", "psihologija|Psihologija", "ruski jezik i književnost (dvopredmetni)|Ruski jezik i književnost (dvopredmetni)", "sestrinstvo (jednopredmetni)|Sestrinstvo (jednopredmetni)", "sociologija (dvopredmetni)|Sociologija (dvopredmetni)", "španjolski jezik i književnost (dvopredmetni)|Španjolski jezik i književnost (dvopredmetni)", "talijanski jezik i književnost (dvopredmetni)|Talijanski jezik i književnost (dvopredmetni)", "talijanski jezik; smjer: prevoditeljski (dvopredmetni)|Talijanski jezik; smjer: prevoditeljski (dvopredmetni)", "učiteljski studij|Učiteljski studij", "hrvatski jezik i književnost|Hrvatski jezik i književnost", "brodostrojarstvo i tehnologija pomorskog prometa |Brodostrojarstvo i tehnologija pomorskog prometa ", "menadžment |Menadžment ", "kultura i turizam |Kultura i turizam ", "primijenjena ekologija u poljoprivredi|Primijenjena ekologija u poljoprivredi", "teološko-katehetski studij (dvopredmetni)|Teološko-katehetski studij (dvopredmetni)", "podvodne znanosti i tehnologije|Podvodne znanosti i tehnologije"];
+					} else if(s1.value == "12"){
+						var optionArray = ["menadžment; smjer: menadžment ruralnog turizma|Menadžment; smjer: Menadžment ruralnog turizma", "poduzetništvo|Poduzetništvo", "računarstvo; smjer: programsko inženjerstvo|Računarstvo; smjer: Programsko inženjerstvo"];
+					} else if(s1.value == "13"){
+						var optionArray = ["management malog poduzeća|Management malog poduzeća", "poslovna ekonomija|Poslovna ekonomija", "turističko poslovanje|Turističko poslovanje", "turizam|Turizam", "arhitektura i urbanizam|Arhitektura i urbanizam", "pravo|Pravo", "upravni studij|Upravni studij", "dizajn vizualnih komunikacija|Dizajn vizualnih komunikacija", "film i video|Film i video", "gitara|Gitara", "glasovir|Glasovir", "glazbena teorija|Glazbena teorija", "gudački instrumenti; smjer: violina|Gudački instrumenti; smjer: Violina", "kiparstvo|Kiparstvo", "likovna kultura i likovna umjetnost|Likovna kultura i likovna umjetnost", "slikarstvo|Slikarstvo", "solo pjevanje|Solo pjevanje", "gudački instrumenti; smjer: viola|Gudački instrumenti; smjer: Viola", "gudački instrumenti; smjer: violončelo|Gudački instrumenti; smjer: Violončelo", "puhački instrumenti; smjer: klarinet|Puhački instrumenti; smjer: Klarinet", "kineziologija|Kineziologija", "kemijska tehnologija; smjer: kemijsko inženjerstvo|Kemijska tehnologija; smjer: Kemijsko inženjerstvo", "pomorska nautika|Pomorska nautika", "pomorske elektrotehničke i informatičke tehnologije|Pomorske elektrotehničke i informatičke tehnologije", "pomorski menadžment|Pomorski menadžment", "kemijska tehnologija; smjer: zaštita okoliša|Kemijska tehnologija; smjer: Zaštita okoliša", "sociologija|Sociologija", "informatika i tehnika|Informatika i tehnika", "matematika i fizika|Matematika i fizika", "matematika i informatika; smjer: nastavnički|Matematika i informatika; smjer: nastavnički", "menadžment trgovine i turizma|Menadžment trgovine i turizma", "elektroenergetika|Elektroenergetika", "konstrukcijsko strojarstvo|Konstrukcijsko strojarstvo", "računovodstvo i financije|Računovodstvo i financije", "informacijska tehnologija|Informacijska tehnologija", "elektronika|Elektronika", "primaljstvo|Primaljstvo", "industrijsko inženjerstvo|Industrijsko inženjerstvo", "teološko - katehetski studij|Teološko - katehetski studij", "biologija i kemija|Biologija i kemija", "matematika; smjer: matematički, računarski, primijenjena matematika|Matematika; smjer: matematički, računarski, primijenjena matematika", "biologija i tehnologija mora|Biologija i tehnologija mora", "puhački instrumenti; smjer: flauta|Puhački instrumenti; smjer: Flauta", "konzervacija i restauracija|Konzervacija i restauracija", "medicinska laboratorijska dijagnostika|Medicinska laboratorijska dijagnostika", "puhački instrumenti; smjer: saksofon|Puhački instrumenti; smjer: Saksofon", "zaštita i oporaba materijala|Zaštita i oporaba materijala", "kompozicija|Kompozicija", "vojno pomorstvo morh|Vojno pomorstvo MORH", "vojno pomorstvo mup|Vojno pomorstvo MUP", "vojno pomorstvo mppi|Vojno pomorstvo MPPI"];
+					} else if(s1.value == "14"){
+						var optionArray = ["operativni menadžment|Operativni menadžment"];
+					} else if(s1.value == "15"){
+						var optionArray = ["sestrinstvo|Sestrinstvo", "bilinogojstvo, smjer ratarstvo|Bilinogojstvo, smjer Ratarstvo", "poljoprivreda; smjer: agroekonomika|Poljoprivreda; smjer: Agroekonomika", "zootehnika|Zootehnika", "poljoprivreda; smjer: bilinogojstvo|Poljoprivreda; smjer: Bilinogojstvo", "poljoprivreda; smjer: mehanizacija|Poljoprivreda; smjer: Mehanizacija", "poljoprivreda; smjer: zootehnika|Poljoprivreda; smjer: Zootehnika", "poljoprivreda; smjer: hortikultura|Poljoprivreda; smjer: Hortikultura", "ekonomska politika i regionalni razvitak,  financijski menadžment, marketing, menadžment, poduzetništvo, poslovna informatika |Ekonomska politika i regionalni razvitak,  Financijski menadžment, Marketing, Menadžment, Poduzetništvo, Poslovna informatika ", "engleski jezik i književnost i hrvatski jezik i književnost |Engleski jezik i književnost i Hrvatski jezik i književnost ", "hrvatski jezik i književnost i njemački jezik i književnost|Hrvatski jezik i književnost i Njemački jezik i književnost", "hrvatski jezik i književnost i povijest |Hrvatski jezik i književnost i Povijest ", "mađarski jezik i književnost i hrvatski jezik i književnost|Mađarski jezik i književnost i Hrvatski jezik i književnost", "njemački jezik i književnost (jednopredmetni)|Njemački jezik i književnost (jednopredmetni)", "medicina|Medicina", "biologija|Biologija", "glazbena pedagogija|Glazbena pedagogija", "klavir|Klavir", "pedagogija i povijest|Pedagogija i Povijest", "mađarski jezik i književnost i engleski jezik i književnost|Mađarski jezik i književnost i Engleski jezik i književnost", "engleski jezik i književnost i filozofija|Engleski jezik i književnost i Filozofija", "engleski jezik i književnost i pedagogija|Engleski jezik i književnost i Pedagogija", "engleski jezik i književnost i povijest|Engleski jezik i književnost i Povijest", "filozofija i hrvatski jezik i književnost|Filozofija i Hrvatski jezik i književnost", "hrvatski jezik i književnost i pedagogija|Hrvatski jezik i književnost i Pedagogija", "mađarski jezik i književnost i povijest|Mađarski jezik i književnost i Povijest", "medicinsko laboratorijska dijagnostika|Medicinsko laboratorijska dijagnostika", "elektrotehnika; smjer: automatika|Elektrotehnika; smjer: Automatika", "elektrotehnika; smjer: elektroenergetika|Elektrotehnika; smjer: Elektroenergetika", "mađarski jezik i književnost i pedagogija|Mađarski jezik i književnost i Pedagogija", "gluma i lutkarstvo|Gluma i lutkarstvo", "filozofija i povijest|Filozofija i Povijest", "sociologija i filozofija|Sociologija i Filozofija", "sociologija i engleski jezik i književnost|Sociologija i Engleski jezik i književnost", "sociologija i pedagogija|Sociologija i Pedagogija", "sociologija i hrvatski jezik i književnost|Sociologija i Hrvatski jezik i književnost", "sociologija i povijest|Sociologija i Povijest", "matematika i računarstvo|Matematika i računarstvo", "kompozicija s teorijom muzike; smjer: kompozicija|Kompozicija s teorijom muzike; smjer: Kompozicija", "njemački jezik i književnost i pedagogija|Njemački jezik i književnost i Pedagogija", "kompozicija s teorijom muzike; smjer: teorija muzike|Kompozicija s teorijom muzike; smjer: Teorija muzike", "žičani instrumenti; smjer: gitara|Žičani instrumenti; smjer: Gitara", "žičani instrumenti; smjer: tambure|Žičani instrumenti; smjer: Tambure"];
+					} else if(s1.value == "16"){
+						var optionArray = ["poslovna ekonomija; smjer: međunarodno poslovanje (na engleskome jeziku)|Poslovna ekonomija; smjer: Međunarodno poslovanje (na engleskome jeziku)", "menadžment održivog razvoja |Menadžment održivog razvoja ", "poslovna ekonomija u turizmu i ugostiteljstvu|Poslovna ekonomija u turizmu i ugostiteljstvu", "fizika|Fizika", "hrvatski jezik i književnost (dvopredmetni)|Hrvatski jezik i književnost (dvopredmetni)", "hrvatski jezik i književnost (jednopredmetni)|Hrvatski jezik i književnost (jednopredmetni)", "pedagogija (jednopredmetni)|Pedagogija (jednopredmetni)", "politehnika |Politehnika ", "povijest (dvopredmetni)|Povijest (dvopredmetni)", "povijest umjetnosti (dvopredmetni)|Povijest umjetnosti (dvopredmetni)", "elektroničke i informatičke tehnologije u pomorstvu|Elektroničke i informatičke tehnologije u pomorstvu", "logistika i menadžment u pomorstvu i prometu|Logistika i menadžment u pomorstvu i prometu", "tehnologija i organizacija prometa|Tehnologija i organizacija prometa", "upravni studij|Upravni studij", "informatika (jednopredmetni)|Informatika (jednopredmetni)", "engleski jezik i književnost (dvopredmetni)|Engleski jezik i književnost (dvopredmetni)", "filozofija (dvopredmetni)|Filozofija (dvopredmetni)", "kulturologija|Kulturologija", "njemački jezik i književnost (dvopredmetni)|Njemački jezik i književnost (dvopredmetni)", "pedagogija (dvopredmetni)|Pedagogija (dvopredmetni)", "dentalna medicina|Dentalna medicina", "matematika|Matematika", "biotehnologija i istraživanje lijekova|Biotehnologija i istraživanje lijekova"];
+					} else if(s1.value == "17"){
+						var optionArray = ["poslovno upravljanje|Poslovno upravljanje"];
+					} else if(s1.value == "18"){
+						var optionArray = ["bilinogojstvo; smjerovi: ratarstvo, hortikultura|Bilinogojstvo; smjerovi: Ratarstvo, Hortikultura", "proizvodno strojarstvo|Proizvodno strojarstvo"];
+					} else if(s1.value == "19"){
+						var optionArray = ["multimedijsko računarstvo|Multimedijsko računarstvo", "digitalni marketing|Digitalni marketing"];
+					} else if(s1.value == "20"){
+						var optionArray = ["turistički i hotelski menadžment|Turistički i hotelski menadžment", "menadžment športa i športskih djelatnosti|Menadžment športa i športskih djelatnosti", "menadžment poslovne sigurnosti|Menadžment poslovne sigurnosti"];
+					} else if(s1.value == "21"){
+						var optionArray = ["komunikologija, mediji i novinarstvo|Komunikologija, mediji i novinarstvo", "medijski dizajn|Medijski dizajn", "poslovanje i menadžment|Poslovanje i menadžment", "multimedija, oblikovanje i primjena|Multimedija, oblikovanje i primjena", "proizvodno strojarstvo|Proizvodno strojarstvo", "tehnička i gospodarska logistika|Tehnička i gospodarska logistika", "elektrotehnika; smjerovi: automatizacija, biomedicinska elektronika|Elektrotehnika; smjerovi: Automatizacija, Biomedicinska elektronika", "graditeljstvo|Graditeljstvo"];
+					} else if(s1.value == "22"){
+						var optionArray = ["informacijske tehnologije|Informacijske tehnologije", "service management|Service Management"];
+					} else if(s1.value == "23"){
+						var optionArray = ["međunarodni odnosi|Međunarodni odnosi", "međunarodno poslovanje|Međunarodno poslovanje", "gluma|Gluma"];
+					} else if(s1.value == "24"){
+						var optionArray = ["trgovina|Trgovina"];
+					} else if(s1.value == "25"){
+						var optionArray = ["medicinsko-laboratorijska dijagnostika|Medicinsko-laboratorijska dijagnostika", "radna terapija|Radna terapija", "fizioterapija|Fizioterapija", "radiološka tehnologija|Radiološka tehnologija", "sanitarno inženjerstvo|Sanitarno inženjerstvo"];
+					} else if(s1.value == "26"){
+						var optionArray = ["inspekcijski i kadrovski menadžment u pomorstvu|Inspekcijski i kadrovski menadžment u pomorstvu"];
+					} else if(s1.value == "27"){
+						var optionArray = ["lovstvo i zaštita prirode|Lovstvo i zaštita prirode", "ugostiteljstvo|Ugostiteljstvo", "mehatronika|Mehatronika", "prehrambena tehnologija; smjerovi: prerada mlijeka, pivarstvo|Prehrambena tehnologija; smjerovi: Prerada mlijeka, Pivarstvo", "sigurnost i zaštita; smjerovi: zaštita na radu, zaštita od požara|Sigurnost i zaštita; smjerovi: Zaštita na radu, Zaštita od požara"];
+					} else if(s1.value == "28"){
+						var optionArray = ["poljoprivreda krša - biljna proizvodnja|Poljoprivreda krša - Biljna proizvodnja", "poljoprivreda krša - stočarstvo krša|Poljoprivreda krša - Stočarstvo krša", "trgovinsko poslovanje s poduzetništvom|Trgovinsko poslovanje s poduzetništvom"];
+					} else if(s1.value == "29"){
+						var optionArray = ["sportski menadžment|Sportski menadžment", "međunarodni menadžment u hotelijerstvu i turizmu|Međunarodni menadžment u hotelijerstvu i turizmu"];
+					} else if(s1.value == "30"){
+						var optionArray = ["povijest|Povijest", "psihologija|Psihologija", "komunikologija|Komunikologija"];
+					} else if(s1.value == "31"){
+						var optionArray = ["elektrotehnika; smjerovi: energetska elektrotehnika, automatizacija i procesno računarstvo, komunikacijska i računalna tehnika|Elektrotehnika; smjerovi: Energetska elektrotehnika, Automatizacija i procesno računarstvo, Komunikacijska i računalna tehnika", "graditeljstvo; smjerovi: visokogradnja, niskogradnja, građevinsko poduzetništvo, okoliš u graditeljstvu|Graditeljstvo; smjerovi: Visokogradnja, Niskogradnja, Građevinsko poduzetništvo, Okoliš u graditeljstvu", "računarstvo; smjerovi: programsko inženjerstvo, inženjerstvo računalnih sustava i mreža|Računarstvo; smjerovi: Programsko inženjerstvo, Inženjerstvo računalnih sustava i mreža", "strojarstvo; smjerovi: proizvodno strojarstvo, konstrukcije|Strojarstvo; smjerovi: Proizvodno strojarstvo, Konstrukcije", "informatika; smjer: organizacija i informatizacija ureda|Informatika; smjer: Organizacija i informatizacija ureda", "informatika; smjer: elektroničko poslovanje|Informatika; smjer: Elektroničko poslovanje", "informatika; smjer: informatički dizajn|Informatika; smjer: Informatički dizajn"];
+					} else if(s1.value == "32"){
+						var optionArray = ["očna optika|Očna optika", "održavanje motornih vozila|Održavanje motornih vozila", "održavanje računalnih sustava|Održavanje računalnih sustava", "održavanje zrakoplova|Održavanje zrakoplova", "upravljanje u kriznim uvjetima|Upravljanje u kriznim uvjetima"];
+					} else if(s1.value == "33"){
+						var optionArray = ["poslovanje i upravljanje|Poslovanje i upravljanje"];
+					} else if(s1.value == "34"){
+						var optionArray = ["ekonomija i management|Ekonomija i management", "poslovna matematika i ekonomija|Poslovna matematika i ekonomija", "poslovno pravo i ekonomija|Poslovno pravo i ekonomija"];
+					} else if(s1.value == "35"){
+						var optionArray = ["komunikacijski menadžment|Komunikacijski menadžment", "menadžment i marketing turističke destinacije|Menadžment i marketing turističke destinacije"];
+					} else if(s1.value == "36"){
+						var optionArray = ["kriminalistika|Kriminalistika",];
+					} else if(s1.value == "37"){
+						var optionArray = ["elektrotehnika i informacijska tehnologija|Elektrotehnika i informacijska tehnologija", "engleski jezik i književnost i njemački jezik i književnost|Engleski jezik i književnost i Njemački jezik i književnost", "informatologija (jednopredmetni)|Informatologija (jednopredmetni)", "građevinarstvo; smjer: opći |Građevinarstvo; smjer: opći ", "filozofsko-teološki studij|Filozofsko-teološki studij", "fizika|Fizika", "kemija|Kemija", "matematika|Matematika", "prehrambena tehnologija|Prehrambena tehnologija", "strojarstvo|Strojarstvo", "likovna kultura|Likovna kultura", "pjevanje|Pjevanje", "građevinarstvo; smjer: opći|Građevinarstvo; smjer: opći", "bilinogojstvo, smjer ratarstvo|Bilinogojstvo, smjer Ratarstvo", "poljoprivreda; smjer: agroekonomika|Poljoprivreda; smjer: Agroekonomika", "zootehnika|Zootehnika", "poljoprivreda; smjer: bilinogojstvo|Poljoprivreda; smjer: Bilinogojstvo", "poljoprivreda; smjer: mehanizacija|Poljoprivreda; smjer: Mehanizacija", "poljoprivreda; smjer: zootehnika|Poljoprivreda; smjer: Zootehnika", "poljoprivreda; smjer: hortikultura|Poljoprivreda; smjer: Hortikultura", "ekonomska politika i regionalni razvitak,  financijski menadžment, marketing, menadžment, poduzetništvo, poslovna informatika |Ekonomska politika i regionalni razvitak,  Financijski menadžment, Marketing, Menadžment, Poduzetništvo, Poslovna informatika ", "engleski jezik i književnost i hrvatski jezik i književnost |Engleski jezik i književnost i Hrvatski jezik i književnost ", "hrvatski jezik i književnost i njemački jezik i književnost|Hrvatski jezik i književnost i Njemački jezik i književnost", "hrvatski jezik i književnost i povijest |Hrvatski jezik i književnost i Povijest ", "mađarski jezik i književnost i hrvatski jezik i književnost|Mađarski jezik i književnost i Hrvatski jezik i književnost", "njemački jezik i književnost (jednopredmetni)|Njemački jezik i književnost (jednopredmetni)", "medicina|Medicina", "biologija|Biologija", "klavir|Klavir", "pedagogija i povijest|Pedagogija i Povijest", "mađarski jezik i književnost i engleski jezik i književnost|Mađarski jezik i književnost i Engleski jezik i književnost", "engleski jezik i književnost i filozofija|Engleski jezik i književnost i Filozofija", "engleski jezik i književnost i pedagogija|Engleski jezik i književnost i Pedagogija", "engleski jezik i književnost i povijest|Engleski jezik i književnost i Povijest", "filozofija i hrvatski jezik i književnost|Filozofija i Hrvatski jezik i književnost", "hrvatski jezik i književnost i pedagogija|Hrvatski jezik i književnost i Pedagogija", "mađarski jezik i književnost i povijest|Mađarski jezik i književnost i Povijest", "medicinsko laboratorijska dijagnostika|Medicinsko laboratorijska dijagnostika", "elektrotehnika; smjer: automatika|Elektrotehnika; smjer: Automatika", "elektrotehnika; smjer: elektroenergetika|Elektrotehnika; smjer: Elektroenergetika", "mađarski jezik i književnost i pedagogija|Mađarski jezik i književnost i Pedagogija", "gluma i lutkarstvo|Gluma i lutkarstvo", "filozofija i povijest|Filozofija i Povijest", "sociologija i filozofija|Sociologija i Filozofija", "sociologija i engleski jezik i književnost|Sociologija i Engleski jezik i književnost", "sociologija i pedagogija|Sociologija i Pedagogija", "sociologija i hrvatski jezik i književnost|Sociologija i Hrvatski jezik i književnost", "sociologija i povijest|Sociologija i Povijest", "matematika i računarstvo|Matematika i računarstvo", "kompozicija s teorijom muzike; smjer: kompozicija|Kompozicija s teorijom muzike; smjer: Kompozicija", "njemački jezik i književnost i pedagogija|Njemački jezik i književnost i Pedagogija", "kompozicija s teorijom muzike; smjer: teorija muzike|Kompozicija s teorijom muzike; smjer: Teorija muzike", "žičani instrumenti; smjer: gitara|Žičani instrumenti; smjer: Gitara", "žičani instrumenti; smjer: tambure|Žičani instrumenti; smjer: Tambure"];
+					} else if(s1.value == "38"){
+						var optionArray = [ "računovodstvo i financije; smjer: računovodstveno - financijski|Računovodstvo i financije; smjer: računovodstveno - financijski" ];
+					} else if(s1.value == "39"){
+						var optionArray = ["računarstvo|Računarstvo", "menadžment turizma i sporta|Menadžment turizma i sporta"];
+					} else if(s1.value == "40"){
+						var optionArray = ["cestovni promet|Cestovni promet", "ekonomika poduzetništva|Ekonomika poduzetništva"];
+					} else if(s1.value == "41"){
+						var optionArray = ["računovodstvo|Računovodstvo", "trgovina|Trgovina", "vinogradarstvo-vinarstvo-voćarstvo|Vinogradarstvo-vinarstvo-voćarstvo"];
+					}
+					optionArray.sort();
+					optionArray.unshift("|");
+					for(var option in optionArray){
+						var pair = optionArray[option].split("|");
+						var newOption = document.createElement("option");
+						newOption.value = pair[0];
+						newOption.innerHTML = pair[1];
+						s2.options.add(newOption);
+					}
+				};
+
+				//Funkcija za vrednovanje
+				/*function Vrednovanje(s1,s2) {
+					var s1 = document.getElementById(s1);
+					var s2 = document.getElementById(s2);
+
+					var smjerovi = 's1=' + s1 + '&s2=' + s2;
+
+	            	var xmlhttp = new XMLHttpRequest();
+	            	xmlhttp.open("POST", "mat.php", true);
+	            	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			        xmlhttp.onreadystatechange = function() {
+			            if (this.readyState == 4 && this.status == 200) {
+			                mat.innerHTML = this.responseText;
+				        }
+				    };
+				    xmlhttp.send(smjerovi;
+
+				    var xmlhttp = new XMLHttpRequest();
+	            	xmlhttp.open("POST", "hrv.php", true);
+			        xmlhttp.onreadystatechange = function() {
+			            if (this.readyState == 4 && this.status == 200) {
+			                hrv.innerHTML = this.responseText;
+				        }
+				    };
+				    xmlhttp.send(smjerovi);
+
+	            	xmlhttp.open("POST", "eng.php", true);
+			        xmlhttp.onreadystatechange = function() {
+			            if (this.readyState == 4 && this.status == 200) {
+			                eng.innerHTML = this.responseText;
+				        }
+				    };
+				    xmlhttp.send(smjerovi);
+				};*/
+			</script>
+
+			<form method='' action='' name = 'myForm'>
+				<span id = 'imena'>Odaberi fakultet</span><br/>
+				<br/>
+				<select id = "Fakulteti" name="Fakulteti" onchange="Opcije(this.id, 'Smjerovi')">	
+					<option value = ''></option>
+					<option value = "23"> DIU Libertas Međunarodno sveučilište </option>
+					<option value = "35"> Edward Bernays Visoka škola za komunikacijski menadžment </option>
+					<option value = "9"> EFFECTUS studij financije i pravo - visoko učilište </option>
+					<option value = "30"> Hrvatsko katoličko sveučilište u Zagrebu </option>
+					<option value = "39"> Međimursko veleučilište u Čakovcu </option>
+					<option value = "10"> Poslovno veleučilište Zagreb </option>
+					<option value = "22"> RIT Croatia </option>
+					<option value = "38"> RRiF Visoka škola za financijski menadžment </option>
+					<option value = "37"> Sveučilište Josipa Jurja Strossmayera u Osijeku </option>
+					<option value = "1"> Sveučilište Jurja Dobrile u Puli </option>
+					<option value = "21"> Sveučilište Sjever </option>
+					<option value = "6"> Sveučilište u Dubrovniku </option>
+					<option value = "16"> Sveučilište u Rijeci </option>
+					<option value = "13"> Sveučilište u Splitu </option>
+					<option value = "11"> Sveučilište u Zadru </option>
+					<option value = "5"> Sveučilište u Zagrebu </option>
+					<option value = "31"> Tehničko veleučilište u Zagrebu </option>
+					<option value = "14"> Veleučilište Hrvatsko zagorje Krapina </option>
+					<option value = "24"> Veleučilište "Lavoslav Ružička" u Vukovaru </option>
+					<option value = "28"> Veleučilište "Marko Marulić" u Kninu </option>
+					<option value = "40"> Veleučilište "Nikola Tesla" u Gospiću </option>
+					<option value = "33"> Veleučilište s pravom javnosti BALTAZAR ZAPREŠIĆ </option>
+					<option value = "27"> Veleučilište u Karlovcu </option>
+					<option value = "41"> Veleučilište u Požegi </option>
+					<option value = "8"> Veleučilište u Rijeci </option>
+					<option value = "18"> Veleučilište u Slavonskom Brodu </option>
+					<option value = "32"> Veleučilište Velika Gorica </option>
+					<option value = "7"> Veleučilište VERN </option>
+					<option value = "3"> Visoka škola međunarodnih odnosa i diplomacije Dag Hammarskjöld </option>
+					<option value = "26"> Visoka škola za inspekcijski i kadrovski menadžment </option>
+					<option value = "29"> Visoka škola za menadžment i dizajn "Aspira" </option>
+					<option value = "12"> Visoka škola za menadžment u turizmu i informatici u Virovitici </option>
+					<option value = "36"> Visoka policijska škola </option>
+					<option value = "20"> Visoka poslovna škola Libertas </option>
+					<option value = "17"> Visoka poslovna škola PAR </option>
+					<option value = "19"> Visoko učilište Algebra </option>
+					<option value = "34"> Zagrebačka škola ekonomije i managementa </option>
+					<option value = "25"> Zdravstveno veleučilište u Zagrebu </option>
+
+				</select>
+				
+				<br/><br/>
+
+				<span id = 'imena'>Odaberi smjer</span><br/>
+				<br/>
+				<select id = "Smjerovi" name="Smjerovi"><option></option></select>
+				
+				<br/><br/><br/>
+
+				<span id = 'imena'>Unesi prosjeke</span><br/>
+				<br/>
+
+				Prosjek svih ocjena 1. razreda <input type="text" name="prvi" id="prvi"><br/>
+				Prosjek svih ocjena 2. razreda <input type="text" name="drugi" id="drugi"><br/>
+				Prosjek svih ocjena 3. razreda <input type="text" name="treci" id="treci"><br/>
+				Prosjek svih ocjena 4. razreda <input type="text" name="cetvrti" id="cetvrti"><br/>
+				
+				<br/><br/><br/>
+				
+				<span id = 'imena'>Unesi rezultate državne mature</span><br/>
+				<br/>
+
+				 Hrvatski <span id="hrv"> </span><br/><input type="text" name="hrvatski" id = 'hrvatski'>%<br/><br/>
+				 Matematika <span id="mat"> </span><br/><input type="text" name="matematika" id = 'matematika'>%<br/><br/>
+				 Engleski <span id="eng"> </span><br/><input type="text" name="engleski" id = 'engleski'>%<br/><br/>
+ 
+				<br/><br/>
+
+				<button type="button" onclick="Bodovi()">Izračunaj</button>
+
+				
+			</form>			
+		</div>
+		<div id ='Bodovi'><br></div>
+		<footer class="site-footer">
+			<hr>
+			<p class="copyright-text">Copyright &copy; 2019 Sva prava pridržana - 
+			Dominik Babić, Mateo Bencek, Robert Cvjetinović, Mario Matić - 3.5 razred.
+			</p>
+		    <ul class="social-icons">
+		      <li><a class="facebook" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+		      <li><a class="twitter" href="https://www.twitter.com/"><i class="fa fa-twitter"></i></a></li>
+		      <li></li><li></li><li></li><li></li>
+		    </ul>
+		</footer>
+		
+
+
+	</body>
+	
+</html>
